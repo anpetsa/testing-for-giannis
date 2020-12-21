@@ -2,8 +2,15 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import pyspark.sql.functions as f
+from pyspark import SparkConf, SparkContext
+from pyspark import SparkSession
 
-
+def main():
+  
+  conf = SparkConf().setAppName("NameProject").setMaster("local[*]")
+  sc = SparkContext(conf=conf)
+  spark = SparkSession.builder.config(conf=conf).getOrCreate()
+  
 df=spark.read.option("header","true").option("delimiter","|").csv("LOANS.TXT")
 
 
@@ -22,3 +29,6 @@ df=pd.read_csv("loansdata.csv")
 df.plot(x='year', y='loans', kind='bar')
 
 plt.savefig("loansPERyear.png")
+
+if__name__== '__main__' : 
+  main()
